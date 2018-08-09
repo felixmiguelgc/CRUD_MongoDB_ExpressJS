@@ -8,8 +8,19 @@
   <body>
     <div class="container">
       <h1><%= title %></h1>
-      <form class="" action="index.html" method="post">
-
+      <form action="/add" method="post">
+        <legend>
+          Add new task
+        </legend>
+        <div class="form-group">
+          <input placeholder="Task" type="text" id="title" class="form-control" name="title">
+        </div>
+        <div class="form-group">
+          <textarea placeholder="Description" class="form-control" rows="1" cols="50" name="description"></textarea>
+        </div>
+        <button class="btn btn-primary">
+          Add
+        </button>
       </form>
       <hr>
       <table class="table table-bordered table-hover">
@@ -22,11 +33,41 @@
           </tr>
         </thead>
         <tbody>
-          <% for (let i=0;i<task.legth;i++) { %>
-
+          <% for (let i=0;i<tasks.length;i++) { %>
+            <tr>
+              <td>
+                <%= i+ 1%>
+              </td>
+              <td>
+                <strong>
+                  <%= tasks[i].title%>
+                </strong>
+              </td>
+              <td>
+                <%= tasks[i].description%>
+              </td>
+              <td>
+                <a
+                  class="<%= tasks[i].status ? 'btn btn-success' : 'btn btn-dark'%>"
+                  href="/turn/<%=tasks[i]._id%>">Done</a>
+                <a
+                  class="btn btn-danger delete"
+                  href="/delete/<%=tasks[i]._id%>">Delete</a>
+              </td>
+            </tr>
           <% } %>
         </tbody>
       </table>
     </div>
+    <script type="text/javascript">
+      document.getElementById('title').focus();
+      let delNodes = document.getElementsByClassName('delete');
+      for(i=0;i<delNodes.length;i++){
+        delNodes[i].addEventListener( 'click', (event)=>{
+          if(!confirm('Are you sure you want to delete this task?'))
+            event.preventDefault();
+          });
+      }
+    </script>
   </body>
 </html>

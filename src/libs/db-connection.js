@@ -1,10 +1,9 @@
-const mongoose = require('mongoose');
+module.exports = () => {
 
-let db;
+  const mongoose = require('mongoose');
 
-module.exports = function Connection() {
-  if(!db){
-    db = mongoose.connect('mongodb://localhost/crud-example');
-  }
-  return db;
-}
+  mongoose.connect('mongodb://localhost/crud-example', {
+    useMongoClinet : true
+  });
+  return mongoose;
+};

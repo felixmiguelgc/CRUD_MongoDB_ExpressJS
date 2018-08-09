@@ -1,5 +1,6 @@
-module.exports = function() {
-  var db = require( __dirname + '/../libs/db-connection')();
+module.exports = () => {
+
+  var db = require( '../libs/db-connection')();
   var schema = require('mongoose').Schema;
 
   var task = schema({
